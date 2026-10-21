@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://cukurovatiusotel.com/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/odalar/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/odalar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/rooms/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/rooms/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/odalar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/rooms/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/hakkimizda/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/hakkimizda/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/about/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/about/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/hakkimizda/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/about/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/galeri/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/galeri/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/gallery/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/gallery/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/galeri/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/gallery/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/iletisim/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/iletisim/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/contact/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/iletisim/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/gizlilik-politikasi/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/gizlilik-politikasi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/privacy-policy/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/privacy-policy/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/gizlilik-politikasi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/privacy-policy/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/kullanim-sartlari/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/kullanim-sartlari/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/terms-of-use/"/>
+  </url>
+  <url>
+    <loc>https://cukurovatiusotel.com/en/terms-of-use/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cukurovatiusotel.com/kullanim-sartlari/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cukurovatiusotel.com/en/terms-of-use/"/>
+  </url>
+</urlset>

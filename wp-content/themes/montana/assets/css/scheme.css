@@ -1,0 +1,89 @@
+/*
+ * Dark mode.
+ *
+ * This LIFTS the active palette rather than replacing it. A Pine site stays
+ * green; only the grounds and the text invert. That is what lets one file
+ * serve all eight palettes, and it is why the rules redefine the preset
+ * variables themselves rather than restyling components: everything in the
+ * theme, patterns and user content alike, already reads from those variables.
+ *
+ * `--wp--preset--color--overlay` is deliberately NOT touched. It is near-white
+ * in every palette because it sits on photographs and on the `dark` ground,
+ * both of which stay dark here.
+ *
+ * .dev/build_theme.py reads this file and audits the result, so the numbers
+ * below are measured, not chosen by eye.
+ */
+
+.montana-dark {
+	color-scheme: dark;
+
+	--wp--preset--color--base: #121416;
+	--wp--preset--color--surface: #1a1d21;
+	--wp--preset--color--contrast: #f1f3f5;
+	--wp--preset--color--muted: #aeb4bb;
+	--wp--preset--color--divider: #30353b;
+
+	/* `dark` is the footer's ground. On a dark page it has to go deeper than
+	   the page, or the footer stops being a separate band. */
+	--wp--preset--color--dark: #070809;
+}
+
+/*
+ * The brand colour has to hold its own against a dark ground.
+ *
+ * Each palette's `primary` is chosen to clear AA against white; against
+ * #121416 most of them do not. Mixing the palette's own `accent` toward white
+ * lifts each one without flattening the differences between them.
+ *
+ * The slug mixed here is load-bearing: a colour-mix on an undefined variable
+ * makes the whole declaration invalid, so `primary` would stop resolving and
+ * every button would render as bare text while every text check still passed.
+ * build_theme.py refuses to build if this file names a slug the palette does
+ * not define.
+ *
+ * `on-primary` turns over with the fill. A lifted `primary` is a light fill,
+ * so a white label on it is unreadable; `on-primary` only ever appears paired
+ * with a primary fill, so redefining it here reaches nothing else.
+ */
+.montana-dark {
+	--wp--preset--color--primary: color-mix(in srgb, var(--wp--preset--color--accent) 78%, white);
+	--wp--preset--color--primary-deep: color-mix(in srgb, var(--wp--preset--color--accent) 58%, white);
+	--wp--preset--color--on-primary: #121416;
+}
+
+/* Photographs are a touch bright against a dark page. */
+@media (prefers-reduced-motion: no-preference) {
+	.montana-dark img:not(.wp-block-cover__image-background):not([src$=".svg"]) {
+		filter: brightness(0.94);
+		transition: filter 0.2s ease;
+	}
+}
+
+/* The toggle shows a sun once the page is dark (its moon is in style.css). */
+.montana-dark .wp-block-button.montana-scheme-toggle > .wp-block-button__link::before {
+	--montana-scheme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/*
+ * Form controls do not inherit the page's colours, so they have to be told.
+ * Without this the booking form stays a block of white in a dark page.
+ */
+.montana-dark .montana-field__control,
+.montana-dark .wp-block-search__input,
+.montana-dark .wp-block-post-comments-form input:not([type="submit"]),
+.montana-dark .wp-block-post-comments-form textarea {
+	background-color: var(--wp--preset--color--surface);
+	border-color: var(--montana-edge);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* A native date picker draws its own indicator in black. */
+.montana-dark input[type="date"]::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+}
+
+/* The scrolled header's shadow barely registers against a dark page. */
+.montana-dark .montana-header.is-stuck {
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.55);
+}

@@ -1,0 +1,1923 @@
+/*
+Theme Name: Montana Otel
+Description: Montana temasının otele özel child theme'i. Otele ait tüm değişiklikler burada durur; ana tema güncellense de kaybolmaz.
+Template: montana
+Version: 0.1.0
+Requires at least: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: montana-child
+*/
+
+/* Üst bilgideki dil bağlantısı: menüyle aynı beyaz, aynı ağırlık. */
+.montana-lang {
+	margin: 0;
+}
+
+.montana-lang a {
+	color: var(--wp--preset--color--overlay);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-decoration: none;
+}
+
+.montana-lang a:hover,
+.montana-lang a:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 0.3em;
+}
+
+/* "Ana Sayfa" iki kelime; dar ekranda ikiye bölünmesin. */
+.montana-header .wp-block-navigation-item__content {
+	white-space: nowrap;
+}
+
+/* Logo otelin adını da taşıyor; yazısı okunacak kadar büyük, sayfa kayınca küçülür. */
+.montana-header .wp-block-site-logo img {
+	max-height: 7.5rem;
+}
+
+.montana-header.is-stuck .wp-block-site-logo img {
+	max-height: 4.25rem;
+}
+
+@media (max-width: 991px) {
+	.montana-header .wp-block-site-logo img {
+		max-height: 4.25rem;
+	}
+}
+
+/*
+ * Misafir yorumları: solda genel puan ve yıldız dağılımı (temanın soluk
+ * paneli), sağda birer birer gezilen yorumlar. Oklar blogdaki sayfalamanın
+ * karelerini tekrarlar: ince çerçeve, üzerine gelince ana renk.
+ */
+.otel-reviews {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+	gap: var(--wp--preset--spacing--60);
+	align-items: start;
+	margin-top: var(--wp--preset--spacing--60);
+}
+
+.otel-reviews p {
+	margin: 0;
+}
+
+.otel-stars {
+	--otel-star: #f5a800;
+	display: inline-block;
+	font-size: 1.125rem;
+	line-height: 1;
+	letter-spacing: 0.1em;
+	background: linear-gradient(90deg, var(--otel-star) calc(var(--otel-rating) / 5 * 100%), var(--wp--preset--color--divider) 0);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.otel-stars::before {
+	content: "★★★★★";
+}
+
+.otel-reviews__score {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+}
+
+.otel-reviews__number {
+	font-size: var(--wp--preset--font-size--display);
+	line-height: 1;
+	color: var(--wp--preset--color--contrast);
+}
+
+.otel-reviews__count {
+	margin-top: 0.375rem !important;
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+}
+
+.otel-reviews__where,
+.otel-reviews__other,
+.otel-review__meta,
+.otel-reviews__counter {
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.otel-reviews__summary > .otel-reviews__other {
+	margin-top: 1.25rem;
+}
+
+.otel-reviews__bars li {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--muted);
+}
+
+.otel-reviews__bars li + li {
+	margin-top: 0.5rem;
+}
+
+.otel-reviews__bar {
+	flex: 1;
+	height: 0.5rem;
+	background-color: var(--wp--preset--color--divider);
+}
+
+.otel-reviews__bar > span {
+	display: block;
+	height: 100%;
+	background-color: var(--wp--preset--color--primary);
+}
+
+.otel-reviews__all > .wp-block-button__link {
+	display: block;
+	text-align: center;
+}
+
+/* Sayaç solda, oklar sağda; yorumun üstünde durur ki yorumun boyu değişince yerinden oynamasın. */
+.otel-reviews__nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 1.25rem;
+}
+
+.otel-reviews__nav[hidden] {
+	display: none;
+}
+
+.otel-reviews__counter {
+	letter-spacing: 0.1em;
+}
+
+.otel-reviews__arrows {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.otel-reviews__arrow {
+	display: inline-grid;
+	place-items: center;
+	width: 2.8125rem;
+	height: 2.8125rem;
+	padding: 0 0 0.15em;
+	border: 1px solid var(--wp--preset--color--divider);
+	background: none;
+	color: var(--wp--preset--color--contrast);
+	font: inherit;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.otel-reviews__arrow:hover,
+.otel-reviews__arrow:focus-visible {
+	background-color: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+.otel-reviews__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid var(--wp--preset--color--divider);
+}
+
+.otel-review {
+	padding: 1.875rem 0;
+	border-bottom: 1px solid var(--wp--preset--color--divider);
+}
+
+.otel-review[hidden] {
+	display: none;
+}
+
+.otel-reviews.is-paged .otel-review {
+	border-bottom: 0;
+	padding-bottom: 0;
+	animation: otel-review-in 0.4s ease;
+}
+
+@keyframes otel-review-in {
+	from {
+		opacity: 0;
+		transform: translateY(0.5rem);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-reviews.is-paged .otel-review {
+		animation: none;
+	}
+}
+
+.otel-review__head {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.otel-review__avatar {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 3.5rem;
+	height: 3.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1;
+}
+
+.otel-review__name {
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.3;
+}
+
+.otel-review__source {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	vertical-align: middle;
+}
+
+.otel-review__source svg {
+	flex: none;
+}
+
+.otel-review__rating {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	margin-top: 1.25rem !important;
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+}
+
+.otel-review__text {
+	margin-top: 0.75rem !important;
+}
+
+.otel-review__text.is-clamped {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--otel-lines, 6);
+	line-clamp: var(--otel-lines, 6);
+	overflow: hidden;
+}
+
+.otel-review__more {
+	margin-top: 0.5rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--wp--preset--color--primary);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.otel-review__more:hover,
+.otel-review__more:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 0.3em;
+}
+
+/* İşletme sahibinin yanıtı: solunda bir çizgi, yorumdan bir ton geride. */
+.otel-review__reply {
+	margin-top: 1.5rem;
+	padding-left: 1.25rem;
+	border-left: 2px solid var(--wp--preset--color--divider);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.otel-review__reply-head {
+	color: var(--wp--preset--color--muted);
+}
+
+.otel-review__reply-head strong {
+	margin-right: 0.5rem;
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+}
+
+@media (max-width: 781px) {
+	.otel-reviews {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/*
+ * Alt bilgide sütunların altındaki harita satırı. Ana tema sütunlarla çizgi
+ * arasına geniş bir boşluk koyar; o boşluk haritanın altına taşınır.
+ */
+.montana-footer .montana-footer__cols {
+	margin-bottom: var(--wp--preset--spacing--50);
+}
+
+.montana-footer__map {
+	display: block;
+	width: 100%;
+	height: 20rem;
+	margin-block: 0 var(--wp--preset--spacing--60);
+	border: 0;
+}
+
+/*
+ * Alt bilgideki iletişim satırları: her biri başında simgesiyle ayrı satır.
+ * Simgeler ana temadaki gibi maske olarak çizilir ve yazının rengini alır.
+ */
+.montana-icon--whatsapp {
+	--montana-icon: url("assets/icons/whatsapp.svg");
+}
+
+/* Telefon ve zarf ana temanın dosyaları. Tarayıcı, değişkendeki adresi onu
+   kullanan stil dosyasına göre çözdüğü için yolları burada yeniden verilir. */
+.montana-footer__lines .montana-icon--phone {
+	--montana-icon: url("../montana/assets/icons/phone.svg");
+}
+
+.montana-footer__lines .montana-icon--mail {
+	--montana-icon: url("../montana/assets/icons/mail.svg");
+}
+
+.montana-footer__lines a {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	width: fit-content;
+}
+
+.montana-footer__lines a + a {
+	margin-top: 0.375rem;
+}
+
+.montana-footer__lines a::before {
+	content: "";
+	flex: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	background-color: currentColor;
+	-webkit-mask: var(--montana-icon) center / contain no-repeat;
+	mask: var(--montana-icon) center / contain no-repeat;
+}
+
+/* Alt bilgideki ve telefon menüsündeki sosyal medya düğmeleri: ince çerçeveli daireler, üzerine gelince ana renkle dolar. */
+.otel-social {
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+}
+
+.otel-social.is-style-montana-plain .wp-social-link.wp-block-social-link {
+	width: 2.875rem;
+	height: 2.875rem;
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--overlay) 22%, transparent);
+	border-radius: 50%;
+	color: var(--wp--preset--color--overlay);
+	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.otel-social.is-style-montana-plain .wp-social-link.wp-block-social-link:hover,
+.otel-social.is-style-montana-plain .wp-social-link.wp-block-social-link:focus-within {
+	background-color: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+/* Açılır menünün içinde çekirdek ve tema bağlantıya iç boşluk verir; daire taşmasın diye burada sıfırlanır. */
+.otel-social.is-style-montana-plain .wp-social-link.wp-block-social-link,
+.otel-social.is-style-montana-plain .wp-social-link a {
+	box-sizing: border-box;
+}
+
+.otel-social.is-style-montana-plain .wp-social-link a {
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0 !important;
+}
+
+.otel-social.is-style-montana-plain .wp-social-link svg {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+/*
+ * Telefonda üst çubuktaki rezervasyon düğmesi gizlenir; yerine açılır menünün
+ * sonunda, sayfaların altında aynı düğme durur. Geniş ekranda bu öğe çizilmez.
+ */
+.montana-header .otel-nav-book {
+	display: none;
+}
+
+.montana-header .wp-block-navigation__responsive-container.is-menu-open .otel-nav-book {
+	display: block;
+	margin-top: 1.25rem;
+}
+
+.montana-header .wp-block-navigation__responsive-container.is-menu-open .otel-nav-book > .wp-block-navigation-item__content {
+	display: inline-block;
+	padding: 0.75rem 1.625rem;
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+	font-size: 1rem;
+}
+
+.montana-header .otel-nav-book > a.wp-block-navigation-item__content::before {
+	display: none;
+}
+
+.montana-header .otel-social {
+	display: none;
+}
+
+.montana-header .wp-block-navigation__responsive-container.is-menu-open .otel-social {
+	display: flex;
+}
+
+/*
+ * Başa dön düğmesi. Koyu, yarı saydam zemin açık ve koyu bölümlerin ikisinde
+ * de okunur; açılır menünün altında kalsın diye z-index'i düşük tutulur.
+ */
+.otel-top {
+	position: fixed;
+	right: 1.25rem;
+	bottom: 1.25rem;
+	z-index: 50;
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background-color: rgb(0 0 0 / 0.45);
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	cursor: pointer;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(0.5rem);
+	transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background-color 0.3s ease, bottom 0.3s ease;
+}
+
+.otel-top[hidden] {
+	display: none;
+}
+
+.otel-top.is-visible {
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+}
+
+.otel-top.is-lifted {
+	bottom: 5rem;
+}
+
+.otel-top:hover,
+.otel-top:focus-visible {
+	background-color: rgb(0 0 0 / 0.7);
+}
+
+/* Çevredeki halka: soluk bir iz ve üstünde, saat 12'den başlayıp sayfada inildikçe dolan çizgi. */
+.otel-top__ring {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+
+.otel-top__ring circle {
+	fill: none;
+	stroke: rgb(255 255 255 / 0.22);
+	stroke-width: 2;
+}
+
+.otel-top__ring .otel-top__progress {
+	stroke: var(--wp--preset--color--accent);
+	stroke-linecap: round;
+	stroke-dasharray: 1;
+	stroke-dashoffset: calc(1 - var(--otel-progress, 0));
+	transition: stroke-dashoffset 0.15s linear;
+}
+
+.otel-top__arrow {
+	position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-top,
+	.otel-top__ring .otel-top__progress {
+		transition: none;
+	}
+}
+
+/*
+ * Telefon menüsünün açılışı. WordPress'in kendi geçişi 0,1 saniye sürer ve
+ * menü bir anda sayfa değişmiş gibi belirir. Burada siyah zemin sağ kenardan
+ * sola doğru bir perde gibi çekilir, ardından satırlar sırayla yerine oturur.
+ */
+@media not (prefers-reduced-motion) {
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open {
+		animation: otel-menu-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+	}
+
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close,
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > * {
+		animation: otel-menu-item 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+		animation-delay: 0.25s;
+	}
+
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(2) { animation-delay: 0.31s; }
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(3) { animation-delay: 0.37s; }
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(4) { animation-delay: 0.43s; }
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(5) { animation-delay: 0.49s; }
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(6) { animation-delay: 0.55s; }
+	.montana-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container > :nth-child(n+7) { animation-delay: 0.61s; }
+}
+
+@keyframes otel-menu-in {
+	from {
+		clip-path: inset(0 0 0 100%);
+	}
+
+	to {
+		clip-path: inset(0);
+	}
+}
+
+@keyframes otel-menu-item {
+	from {
+		opacity: 0;
+		transform: translateX(1.25rem);
+	}
+}
+
+/*
+ * Hakkımızda bölümünde oteli yapan firma: logo ve tek satır. Logo altın rengi
+ * ve siyah zemin için çizilmiş; açık temada da okunsun diye kendi siyah
+ * karosunun üzerinde durur.
+ */
+.otel-builder {
+	gap: 1.25rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--wp--preset--color--divider);
+}
+
+.otel-builder + .montana-more {
+	margin-top: 1.75rem;
+}
+
+.otel-builder > * {
+	margin: 0;
+}
+
+.otel-builder__logo {
+	flex: none;
+	padding: 0.625rem;
+	border-radius: 0.5rem;
+	background-color: #000;
+	line-height: 0;
+}
+
+.otel-builder__text strong {
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+}
+
+/*
+ * Ana sayfadaki galeri (inc/gallery.php, assets/circular-gallery.js).
+ * Fotoğraflar siyah zeminde bir yay üzerinde durur. Galerinin kendisi WebGL
+ * tuvalidir; aşağıdaki sınıflar tuvalin çevresindeki yardımcı öğeler içindir.
+ */
+.otel-home-gallery {
+	padding-top: var(--wp--preset--spacing--70);
+	padding-bottom: var(--wp--preset--spacing--70);
+	background-color: var(--wp--preset--color--dark);
+	color: var(--wp--preset--color--on-dark);
+}
+
+.otel-home-gallery h2,
+.otel-home-gallery .montana-more a {
+	color: var(--wp--preset--color--overlay);
+}
+
+.otel-home-gallery .montana-title.montana-title--center {
+	margin-bottom: 0 !important;
+}
+
+.otel-home-gallery__more {
+	margin: 0;
+}
+
+.circular-gallery {
+	position: relative;
+	height: clamp(22rem, 62vh, 34rem);
+	margin-block: 0 var(--wp--preset--spacing--30);
+	overflow: hidden;
+	touch-action: pan-y;
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: grab;
+}
+
+.circular-gallery[data-pointer] {
+	cursor: pointer;
+}
+
+.circular-gallery[data-dragging] {
+	cursor: grabbing;
+}
+
+.circular-gallery-canvas {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.circular-gallery-labels {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.circular-gallery-label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height: 1.2;
+	white-space: nowrap;
+	will-change: transform, opacity;
+}
+
+.circular-gallery-caption {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: min(90%, 36rem);
+	text-align: center;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.circular-gallery-caption-text {
+	margin: 0;
+	line-height: 1.5;
+	opacity: 0.65;
+}
+
+.circular-gallery-close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(0 0 0 / 0.45);
+	color: inherit;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+}
+
+.circular-gallery-close[data-visible] {
+	opacity: 0.85;
+	pointer-events: auto;
+}
+
+.circular-gallery-close:hover {
+	opacity: 1;
+}
+
+.circular-gallery-close:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.circular-gallery-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Yedek: WebGL2 yoksa yatay kaydırılan düz bir fotoğraf sırası. */
+.circular-gallery-fallback {
+	display: flex;
+	gap: 1rem;
+	height: 100%;
+	margin: 0;
+	padding: 0 var(--montana-gutter, 1.5rem);
+	list-style: none;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+}
+
+.circular-gallery-fallback li {
+	flex: none;
+	height: 100%;
+	aspect-ratio: 0.78;
+	scroll-snap-align: center;
+}
+
+.circular-gallery-fallback img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0.5rem;
+}
+
+.circular-gallery.is-ready .circular-gallery-fallback {
+	display: none;
+}
+
+/*
+ * Rezervasyon formunun tarih seçicisi (assets/date-picker.js). Düğme formun
+ * diğer alanlarıyla aynı kutudur; takvim onun altında açılır ve temanın
+ * renklerini kullanır, bu yüzden karanlık modda kendiliğinden döner.
+ */
+.otel-date {
+	position: relative;
+	display: block;
+}
+
+.otel-date__trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	text-align: left;
+	cursor: pointer;
+}
+
+.otel-date__trigger.is-empty .otel-date__value {
+	color: var(--wp--preset--color--muted);
+}
+
+.otel-date__trigger.is-invalid {
+	border-color: #d63638;
+}
+
+.otel-date__value {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* Değer değişince yeni tarih, ileri bir günse aşağıdan, geri bir günse yukarıdan gelir. */
+.otel-date__value.is-up {
+	animation: otel-date-up 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.otel-date__value.is-down {
+	animation: otel-date-down 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes otel-date-up {
+	from {
+		opacity: 0;
+		transform: translateY(0.6em);
+	}
+}
+
+@keyframes otel-date-down {
+	from {
+		opacity: 0;
+		transform: translateY(-0.6em);
+	}
+}
+
+.otel-date__icon {
+	flex: none;
+	display: grid;
+	color: var(--wp--preset--color--muted);
+}
+
+.otel-date__popover {
+	position: absolute;
+	top: calc(100% + 0.5rem);
+	left: 0;
+	z-index: 30;
+	box-sizing: border-box;
+	width: min(20rem, 100vw - 2rem);
+	padding: 1rem;
+	border: 1px solid var(--montana-edge, var(--wp--preset--color--divider));
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	box-shadow: 0 18px 40px rgb(0 0 0 / 0.28);
+	transform-origin: top left;
+}
+
+.otel-date__popover.is-end {
+	left: auto;
+	right: 0;
+	transform-origin: top right;
+}
+
+.otel-date__popover[hidden] {
+	display: none;
+}
+
+.otel-date__popover.is-open {
+	animation: otel-date-in 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes otel-date-in {
+	from {
+		opacity: 0;
+		transform: translateY(-0.375rem) scale(0.96);
+	}
+}
+
+.otel-date__header {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	margin-bottom: 0.75rem;
+}
+
+.otel-date__title {
+	flex: 1;
+	margin: 0;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.otel-date__today,
+.otel-date__nav,
+.otel-date__day {
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.otel-date__today {
+	padding: 0.375rem 0.625rem;
+	color: var(--wp--preset--color--primary);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+}
+
+.otel-date__nav {
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border-radius: 50%;
+}
+
+.otel-date__today:hover:not(:disabled),
+.otel-date__nav:hover:not(:disabled) {
+	background-color: var(--wp--preset--color--surface);
+}
+
+.otel-date__today:disabled,
+.otel-date__nav:disabled {
+	opacity: 0.35;
+	cursor: default;
+}
+
+.otel-date__weekdays,
+.otel-date__grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 2px;
+}
+
+.otel-date__weekdays {
+	margin-bottom: 0.25rem;
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--x-small);
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.otel-date__day {
+	aspect-ratio: 1;
+	display: grid;
+	place-items: center;
+	padding: 0;
+	border-radius: 50%;
+	font-size: var(--wp--preset--font-size--small);
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.otel-date__day:hover:not(:disabled) {
+	background-color: var(--wp--preset--color--surface);
+}
+
+.otel-date__day:disabled {
+	color: var(--wp--preset--color--muted);
+	opacity: 0.4;
+	cursor: default;
+}
+
+.otel-date__day.is-today {
+	box-shadow: inset 0 0 0 1px var(--wp--preset--color--primary);
+}
+
+.otel-date__day.is-in-range {
+	border-radius: 0;
+	background-color: color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent);
+}
+
+.otel-date__day.is-range-start:not(:disabled),
+.otel-date__day.is-range-start:disabled {
+	opacity: 1;
+	box-shadow: inset 0 0 0 2px var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--contrast);
+}
+
+.otel-date__day.is-selected,
+.otel-date__day.is-selected:hover {
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+	font-weight: 600;
+}
+
+.otel-date__today:focus-visible,
+.otel-date__nav:focus-visible,
+.otel-date__day:focus-visible {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-date__value,
+	.otel-date__popover.is-open {
+		animation: none;
+	}
+}
+
+/*
+ * Temel bilgiler (inc/facts.php): zeminsiz, ortalanmış tek bir satır. Üstte ve
+ * altta ince birer çizgi, bilgilerin arasında dikey çizgiler; her bilgide
+ * simge üstte, değer büyük, başlığı altında küçük ve aralıklı harflerle.
+ */
+.otel-icon--login { --montana-icon: url("assets/icons/login.svg"); }
+.otel-icon--logout { --montana-icon: url("assets/icons/logout.svg"); }
+.otel-icon--parking { --montana-icon: url("assets/icons/parking.svg"); }
+.otel-icon--snowflake { --montana-icon: url("assets/icons/snowflake.svg"); }
+.otel-icon--paw { --montana-icon: url("assets/icons/paw.svg"); }
+
+.otel-facts {
+	padding-top: var(--wp--preset--spacing--40);
+	padding-bottom: var(--wp--preset--spacing--40);
+}
+
+.otel-facts__list {
+	display: grid;
+	grid-auto-columns: minmax(0, 1fr);
+	grid-auto-flow: column;
+	max-width: 72rem;
+	margin: 0 auto;
+	padding: 2rem 0;
+	border-block: 1px solid var(--wp--preset--color--divider);
+	list-style: none;
+}
+
+.otel-facts__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.25rem 1rem;
+	text-align: center;
+}
+
+.otel-facts__item + .otel-facts__item {
+	border-left: 1px solid var(--wp--preset--color--divider);
+}
+
+.otel-facts__item::before {
+	content: "";
+	width: 1.75rem;
+	height: 1.75rem;
+	margin-bottom: 0.875rem;
+	background-color: var(--wp--preset--color--primary);
+	-webkit-mask: var(--montana-icon) center / contain no-repeat;
+	mask: var(--montana-icon) center / contain no-repeat;
+}
+
+.otel-facts__value {
+	order: 1;
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--x-large);
+	line-height: 1.2;
+}
+
+.otel-facts__label {
+	order: 2;
+	margin-top: 0.5rem;
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--x-small);
+	letter-spacing: 0.18em;
+	line-height: 1.3;
+	text-transform: uppercase;
+}
+
+@media (max-width: 599px) {
+	.otel-facts__list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-auto-flow: row;
+		row-gap: 1.75rem;
+	}
+
+	.otel-facts__item:nth-child(odd) {
+		border-left: 0;
+	}
+
+	/* Tek kalan son bilgi satırın ortasına oturur. */
+	.otel-facts__item:last-child:nth-child(odd) {
+		grid-column: 1 / -1;
+	}
+}
+
+/*
+ * Oda kartları (inc/rooms.php) ve oda videosu penceresi (assets/room-video.js).
+ * Kapaklar dikey videonun bir karesidir; kartta 4:5 oranında kırpılır.
+ */
+.otel-rooms {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1.5rem;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+
+.otel-room {
+	margin: 0;
+}
+
+.otel-room__media {
+	position: relative;
+	display: block;
+	aspect-ratio: 4 / 5;
+	overflow: hidden;
+	background-color: var(--wp--preset--color--dark);
+	color: #fff;
+	text-decoration: none;
+}
+
+.otel-room__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
+}
+
+.otel-room__media:hover img,
+.otel-room__media:focus-visible img {
+	transform: scale(1.05);
+}
+
+.otel-room__play {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: grid;
+	place-items: center;
+	width: 4rem;
+	height: 4rem;
+	padding-left: 0.2rem;
+	box-sizing: border-box;
+	border: 1px solid rgb(255 255 255 / 0.55);
+	border-radius: 50%;
+	background-color: rgb(0 0 0 / 0.35);
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+	transform: translate(-50%, -50%);
+	transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.otel-room__media:hover .otel-room__play,
+.otel-room__media:focus-visible .otel-room__play {
+	border-color: var(--wp--preset--color--accent);
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+	transform: translate(-50%, -50%) scale(1.06);
+}
+
+.otel-room__overlay {
+	position: absolute;
+	inset: auto 0 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: 3rem 1.25rem 1.25rem;
+	background: linear-gradient(to top, rgb(0 0 0 / 0.75), transparent);
+}
+
+.otel-room__capacity {
+	margin: 0;
+	color: var(--wp--preset--color--accent);
+	font-size: var(--wp--preset--font-size--x-small);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.otel-room__name {
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.25;
+}
+
+.otel-room__body {
+	padding-top: 1.25rem;
+}
+
+.otel-room__body > * {
+	margin: 0;
+}
+
+.otel-room__title {
+	margin-top: 0.375rem;
+	font-size: var(--wp--preset--font-size--x-large);
+}
+
+.otel-room__facts {
+	margin-top: 0.75rem;
+	padding: 0;
+	color: var(--wp--preset--color--contrast);
+	list-style: none;
+}
+
+.otel-room__text {
+	margin-top: 0.5rem;
+	color: var(--wp--preset--color--muted);
+}
+
+.otel-room__book {
+	margin-top: 1rem;
+}
+
+@media (max-width: 991px) {
+	.otel-rooms {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 599px) {
+	.otel-rooms {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* Video penceresi: dikey video ekran yüksekliğine sığar, altında oda adı ve rezervasyon. */
+.otel-video {
+	position: fixed;
+	inset: 0;
+	width: fit-content;
+	height: fit-content;
+	max-width: 100vw;
+	max-height: 100vh;
+	margin: auto;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	overflow: visible;
+}
+
+.otel-video::backdrop {
+	background: rgb(0 0 0 / 0.85);
+}
+
+.otel-video[open] {
+	animation: otel-video-in 0.3s ease;
+}
+
+@keyframes otel-video-in {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+
+.otel-video__frame {
+	display: flex;
+	flex-direction: column;
+	width: min(92vw, calc((100vh - 9rem) * 9 / 16));
+	width: min(92vw, calc((100dvh - 9rem) * 9 / 16));
+}
+
+.otel-video__player {
+	display: block;
+	width: 100%;
+	aspect-ratio: 9 / 16;
+	background-color: #000;
+	object-fit: contain;
+}
+
+.otel-video__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-top: 0.875rem;
+}
+
+.otel-video__title {
+	margin: 0;
+	color: #fff;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.otel-video__book {
+	flex: none;
+	padding: 0.625rem 1.125rem;
+	font-size: var(--wp--preset--font-size--small);
+	text-decoration: none;
+}
+
+.otel-video__close {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	border: 1px solid rgb(255 255 255 / 0.3);
+	border-radius: 50%;
+	background: rgb(0 0 0 / 0.5);
+	color: #fff;
+	cursor: pointer;
+}
+
+.otel-video__close:hover,
+.otel-video__close:focus-visible {
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+}
+
+.otel-video-open {
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-video[open] {
+		animation: none;
+	}
+
+	.otel-room__media img,
+	.otel-room__play {
+		transition: none;
+	}
+}
+
+/*
+ * Galeri sayfasının fotoğraf duvarı (inc/masonry.php, assets/masonry.js).
+ * Betik yokken CSS sütunlarıyla dizilir; betik fotoğrafları tek tek
+ * konumlandırır ve ekrana girdikçe aşağıdan, bulanıktan netleşerek getirir.
+ */
+.otel-masonry {
+	position: relative;
+	columns: 3 260px;
+	column-gap: 12px;
+}
+
+.otel-masonry__tile {
+	display: block;
+	margin-bottom: 12px;
+	overflow: hidden;
+	border-radius: 0.75rem;
+	background-color: color-mix(in srgb, var(--wp--preset--color--contrast) 8%, transparent);
+	break-inside: avoid;
+}
+
+.otel-masonry__tile img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.otel-masonry.is-ready {
+	columns: auto;
+}
+
+.otel-masonry.is-ready .otel-masonry__tile {
+	position: absolute;
+	margin: 0;
+	opacity: 0;
+	transform: translateY(48px) scale(0.96);
+	filter: blur(10px);
+	transition:
+		left 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+		top 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+		width 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+		height 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+		opacity 0.6s ease var(--delay, 0ms),
+		transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1.15) var(--delay, 0ms),
+		filter 0.6s ease var(--delay, 0ms);
+}
+
+.otel-masonry.is-ready .otel-masonry__tile.is-shown {
+	opacity: 1;
+	transform: none;
+	filter: none;
+}
+
+.otel-masonry__tile:hover img,
+.otel-masonry__tile:focus-visible img {
+	transform: scale(1.07);
+}
+
+.otel-masonry__tile:focus-visible {
+	outline: 2px solid var(--wp--preset--color--accent);
+	outline-offset: 3px;
+}
+
+/* Büyük görünüm açıkken duvardaki yeri boş kalır, fotoğraf oradan uçar. */
+.otel-masonry__tile.is-open {
+	visibility: hidden;
+}
+
+.otel-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+}
+
+.otel-lightbox-open {
+	overflow: hidden;
+}
+
+.otel-lightbox__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgb(9 9 11 / 0.92);
+}
+
+.otel-lightbox__image {
+	position: fixed;
+	display: block;
+	object-fit: cover;
+	border-radius: 6px;
+	transform-origin: 0 0;
+	cursor: zoom-out;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+.otel-lightbox__counter {
+	position: fixed;
+	left: 0;
+	right: 0;
+	margin: 0;
+	color: rgb(255 255 255 / 0.7);
+	font-size: var(--wp--preset--font-size--small);
+	letter-spacing: 0.12em;
+	text-align: center;
+	pointer-events: none;
+}
+
+.otel-lightbox__button {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.08);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.otel-lightbox__button:hover,
+.otel-lightbox__button:focus-visible {
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+}
+
+.otel-lightbox__close {
+	top: 1rem;
+	right: 1rem;
+}
+
+.otel-lightbox__prev,
+.otel-lightbox__next {
+	top: calc(50% - 1.375rem);
+}
+
+.otel-lightbox__prev {
+	left: 1rem;
+}
+
+.otel-lightbox__next {
+	right: 1rem;
+}
+
+@media (max-width: 639px) {
+	.otel-lightbox__prev,
+	.otel-lightbox__next {
+		top: auto;
+		bottom: 1.25rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-masonry.is-ready .otel-masonry__tile,
+	.otel-masonry__tile img {
+		transition: none;
+	}
+}
+
+/* Galeri kategorileri ve fotoğraf başlıkları (başlıklar her zaman görünür). */
+.otel-filters {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem;
+	margin-bottom: var(--wp--preset--spacing--50);
+}
+
+.otel-filter {
+	padding: 0.5rem 1.125rem;
+	border: 1px solid var(--wp--preset--color--divider);
+	border-radius: 999px;
+	background: none;
+	color: var(--wp--preset--color--contrast);
+	font: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.otel-filter:hover,
+.otel-filter:focus-visible {
+	border-color: var(--wp--preset--color--accent);
+}
+
+.otel-filter.is-active {
+	border-color: var(--wp--preset--color--accent);
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+}
+
+.otel-masonry__tile {
+	position: relative;
+}
+
+.otel-masonry__tile[hidden] {
+	display: none;
+}
+
+.otel-masonry__caption {
+	position: absolute;
+	inset: auto 0 0;
+	padding: 2.5rem 0.875rem 0.75rem;
+	background: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent);
+	color: #fff;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.3;
+	pointer-events: none;
+}
+
+/* "Açık Büfe Kahvaltı" kartındaki görsel kahvaltı videosunu açar; kartın kendi oranı korunur. */
+.montana-offer__photo .otel-offer-video {
+	aspect-ratio: auto;
+	height: 100%;
+}
+
+/*
+ * Sayfa sonundaki fotoğraf şeridi (inc/strip.php): kenardan kenara beş kare,
+ * aralarında boşluk yok; üzerine gelince koyulaşır ve "Galeriyi gör" yazar.
+ * Telefonda ilk üçü görünür.
+ */
+.otel-strip {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	margin-block: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.otel-strip li {
+	margin: 0;
+}
+
+.otel-strip a {
+	position: relative;
+	display: block;
+	aspect-ratio: 1;
+	overflow: hidden;
+	color: #fff;
+	text-decoration: none;
+}
+
+.otel-strip img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
+}
+
+.otel-strip__more {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	background: rgb(0 0 0 / 0.45);
+	font-size: var(--wp--preset--font-size--small);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.otel-strip a:hover img,
+.otel-strip a:focus-visible img {
+	transform: scale(1.06);
+}
+
+.otel-strip a:hover .otel-strip__more,
+.otel-strip a:focus-visible .otel-strip__more {
+	opacity: 1;
+}
+
+@media (max-width: 599px) {
+	.otel-strip {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.otel-strip li:nth-child(n+4) {
+		display: none;
+	}
+}
+
+/* Ana sayfa açılışındaki rezervasyon butonu: otel adının altında, sitenin altın rengiyle. */
+.otel-hero-cta {
+	margin-top: var(--wp--preset--spacing--40);
+}
+
+.otel-hero-cta .wp-block-button__link {
+	padding: 0.95rem 2.25rem;
+	letter-spacing: 0.08em;
+}
+
+/*
+ * Açılıştaki "Rezervasyon Talebi" butonunda, yazının solunda sürekli çalan bir zil.
+ * Zil React Bits'teki BellToggle bileşeninin çizimi ve sallanışıdır: tepesinden
+ * asılı, beş kez giderek azalan salınımla çalar, kısa bir ara verir, yeniden çalar.
+ * Hareketi azaltmış ziyaretçilerde zil durur.
+ */
+.otel-hero-cta .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.625rem;
+}
+
+.otel-hero-cta .wp-block-button__link::before {
+	content: "";
+	flex: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	background-color: currentColor;
+	-webkit-mask: url("assets/icons/bell.svg") center / contain no-repeat;
+	mask: url("assets/icons/bell.svg") center / contain no-repeat;
+	transform-origin: 50% 16%;
+	animation: otel-bell-ring 2.4s linear infinite;
+}
+
+@keyframes otel-bell-ring {
+	0% {
+		transform: rotate(0deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	2.3% {
+		transform: rotate(-17deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	6% {
+		transform: rotate(13.6deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	10.1% {
+		transform: rotate(-10.2deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	14.7% {
+		transform: rotate(6.8deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	20.2% {
+		transform: rotate(-3.4deg);
+		animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	}
+
+	34%,
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-hero-cta .wp-block-button__link::before {
+		animation: none;
+	}
+}
+
+/*
+ * Açılıştaki rezervasyon butonu başlığın altından alınır, her ekran boyutunda
+ * görselin sol altına, menüyle aynı hizaya oturur. Butonun konumu kapağın kendisine göre verilebilsin
+ * diye iç kaplar konumlandırılmaz; başlık ve alt satır karartmanın üstünde kalsın
+ * diye kendileri öne alınır.
+ */
+.montana-hero .wp-block-cover__inner-container,
+.montana-hero .wp-block-cover__inner-container > .wp-block-group {
+	position: static;
+}
+
+.montana-hero .montana-hero__title,
+.montana-hero .montana-hero__line {
+	position: relative;
+	z-index: 1;
+}
+
+.montana-hero .otel-hero-cta {
+	position: absolute;
+	z-index: 2;
+	left: max(var(--montana-gutter, 1.5rem), 1.5rem);
+	bottom: 4rem;
+	margin: 0;
+	justify-content: flex-start;
+}
+
+@media (max-width: 781px) {
+	.montana-hero .otel-hero-cta .wp-block-button__link {
+		padding: 0.8rem 1.4rem;
+		letter-spacing: 0.05em;
+	}
+}
+
+/*
+ * Alt bilgideki yasal bağlantılar: gizlilik, kullanım şartları, çerez tercihleri.
+ */
+.otel-legal-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1.25rem;
+}
+
+.otel-legal-links a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.otel-legal-links a:hover,
+.otel-legal-links a:focus-visible {
+	text-decoration: underline;
+}
+
+/*
+ * Çerez onay şeridi (inc/consent.php, assets/consent.js). Sayfanın altında,
+ * içeriğin üstünde durur; "Reddet" ve "Kabul et" aynı boyuttadır.
+ */
+.otel-consent {
+	position: fixed;
+	z-index: 100;
+	right: 1rem;
+	bottom: 1rem;
+	left: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 1.5rem;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 60rem;
+	margin-inline: auto;
+	padding: 1.25rem 1.5rem;
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--accent) 35%, transparent);
+	border-radius: 0.5rem;
+	background-color: var(--wp--preset--color--dark);
+	box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.3);
+	color: var(--wp--preset--color--on-dark);
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.55;
+	opacity: 0;
+	transform: translateY(1rem);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.otel-consent[hidden] {
+	display: none;
+}
+
+.otel-consent.is-open {
+	opacity: 1;
+	transform: none;
+}
+
+.otel-consent__body {
+	flex: 1 1 22rem;
+}
+
+.otel-consent__title {
+	margin: 0 0 0.25rem;
+	color: var(--wp--preset--color--overlay);
+	font-weight: 600;
+}
+
+.otel-consent__text {
+	margin: 0;
+}
+
+.otel-consent__text a {
+	color: var(--wp--preset--color--accent);
+}
+
+.otel-consent__actions {
+	display: flex;
+	flex: 0 0 auto;
+	gap: 0.75rem;
+}
+
+.otel-consent__button {
+	min-width: 7.5rem;
+	padding: 0.7rem 1.25rem;
+	border: 1px solid var(--wp--preset--color--accent);
+	border-radius: 0;
+	background: transparent;
+	color: var(--wp--preset--color--overlay);
+	font: inherit;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+}
+
+.otel-consent__button.is-primary {
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+}
+
+.otel-consent__button:hover,
+.otel-consent__button:focus-visible {
+	filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+	.otel-consent {
+		right: 0.75rem;
+		bottom: 0.75rem;
+		left: 0.75rem;
+		padding: 1rem 1.125rem;
+	}
+
+	.otel-consent__actions {
+		flex: 1 1 100%;
+	}
+
+	.otel-consent__button {
+		flex: 1;
+		min-width: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-consent {
+		transition: none;
+	}
+}
+
+/*
+ * Onay verilmeden Google Haritalar yüklenmez; haritanın yerinde açıklama,
+ * "Haritayı göster" düğmesi ve Google Haritalar bağlantısı durur.
+ */
+.otel-map {
+	position: relative;
+}
+
+.otel-map:has(.montana-footer__map) {
+	margin-block: 0 var(--wp--preset--spacing--60);
+}
+
+.otel-map > iframe {
+	margin: 0;
+	background-color: #1b1a16;
+}
+
+.otel-map__placeholder {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+	align-items: center;
+	justify-content: center;
+	padding: 1.5rem;
+	color: #e9e4d8;
+	font-size: var(--wp--preset--font-size--small);
+	text-align: center;
+}
+
+.otel-map__placeholder p {
+	max-width: 26rem;
+	margin: 0;
+}
+
+.otel-map__load {
+	padding: 0.7rem 1.5rem;
+	border: 0;
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--dark);
+	font: inherit;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+}
+
+.otel-map__placeholder a {
+	color: inherit;
+}
+
+.otel-map.is-loaded .otel-map__placeholder {
+	display: none;
+}
+
+/*
+ * Sayfa başlığında birden çok görsel (inc/banners.php): sonrakiler ilkinin
+ * üstünde durur, sırası gelince belirip kaybolur.
+ */
+.montana-banner .otel-banner__slide {
+	opacity: 0;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-fill-mode: backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.montana-banner .otel-banner__slide {
+		display: none;
+	}
+}
+
+/*
+ * Ana sayfa açılışındaki drone videosu (inc/hero-video.php). İlk kare
+ * görsel olarak altta durur; video oynamaya başlayınca yumuşakça üstüne
+ * gelir. Hareketi azaltmış ziyaretçide video gizlenir.
+ */
+.otel-hero-poster {
+	display: contents;
+}
+
+.otel-hero--video .otel-hero-video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transition: opacity 0.8s ease;
+}
+
+.otel-hero--video .otel-hero-video.is-playing {
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.otel-hero--video .otel-hero-video {
+		display: none;
+	}
+}

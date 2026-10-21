@@ -1,0 +1,424 @@
+/*
+ * Forms.
+ *
+ * Two jobs: style Montana's own forms (booking request, contact and
+ * newsletter, all drawn by inc/booking.php), and pull the common form plugins onto the theme's
+ * tokens so a form block does not look like a different website dropped into
+ * the page.
+ *
+ * Everything here is expressed in palette variables, so a form follows
+ * whichever of the eight colour variations a site has active.
+ */
+
+/* ---------------------------------------------------------------------------
+   Shared controls
+   --------------------------------------------------------------------------- */
+
+.montana-field__control,
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 input[type="tel"],
+.wpcf7 input[type="date"],
+.wpcf7 input[type="number"],
+.wpcf7 textarea,
+.wpcf7 select,
+.wpforms-field input[type="text"],
+.wpforms-field input[type="email"],
+.wpforms-field input[type="tel"],
+.wpforms-field textarea,
+.wpforms-field select,
+.gform_wrapper input[type="text"],
+.gform_wrapper input[type="email"],
+.gform_wrapper input[type="tel"],
+.gform_wrapper textarea,
+.gform_wrapper select,
+.fluentform input[type="text"],
+.fluentform input[type="email"],
+.fluentform textarea,
+.fluentform select,
+.forminator-input,
+.forminator-textarea,
+.nf-form-content input[type="text"],
+.nf-form-content input[type="email"],
+.nf-form-content textarea {
+	width: 100%;
+	/* Form controls do not inherit a border-box reset from WordPress or from
+	   the theme; without it `width: 100%` plus padding and a border is wider
+	   than the cell the control sits in. */
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0.85rem 1rem;
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--wp--preset--color--contrast);
+	background-color: var(--wp--preset--color--base);
+	border: 1px solid var(--montana-edge);
+	border-radius: 0;
+	box-shadow: none;
+	transition: border-color 0.2s ease;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.montana-field__control::placeholder {
+	/* The placeholder carries the field's name in the compact layouts, so it
+	   has to be readable, not the browser's pale grey. */
+	color: var(--wp--preset--color--muted);
+	opacity: 1;
+}
+
+.montana-field__control:focus,
+.wpcf7 input:focus,
+.wpcf7 textarea:focus,
+.wpforms-field input:focus,
+.wpforms-field textarea:focus,
+.gform_wrapper input:focus,
+.gform_wrapper textarea:focus,
+.fluentform input:focus,
+.fluentform textarea:focus,
+.forminator-input:focus,
+.forminator-textarea:focus {
+	border-color: var(--wp--preset--color--primary);
+	outline: 2px solid color-mix(in srgb, var(--wp--preset--color--primary) 35%, transparent);
+	outline-offset: 0;
+}
+
+/* One height for every single-line control: a date input renders its own
+   picker and otherwise comes out taller than the text input beside it. */
+.montana-field__control {
+	min-height: 2.75rem;
+}
+
+textarea.montana-field__control {
+	min-height: 6rem;
+	resize: vertical;
+}
+
+/* ---------------------------------------------------------------------------
+   Labels
+   --------------------------------------------------------------------------- */
+
+.montana-field__label,
+.wpcf7 label,
+.wpforms-field-label,
+.gfield_label,
+.fluentform .ff-el-input--label label {
+	display: block;
+	margin-bottom: 0.4rem;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+	color: var(--wp--preset--color--contrast);
+}
+
+.montana-field__required {
+	color: var(--wp--preset--color--primary);
+}
+
+/* ---------------------------------------------------------------------------
+   Montana's forms
+   --------------------------------------------------------------------------- */
+
+.montana-form {
+	position: relative;
+	margin: 0;
+}
+
+/* The anchor the POST redirect comes back to, clear of the sticky header. */
+.montana-form__anchor {
+	position: absolute;
+	top: -140px;
+	width: 0;
+	height: 0;
+}
+
+.montana-form .montana-field {
+	margin: 0;
+}
+
+.montana-form__grid {
+	display: grid;
+	gap: 1.25rem;
+}
+
+.montana-form__actions {
+	margin: 1.25rem 0 0;
+}
+
+.montana-form__actions .wp-element-button {
+	cursor: pointer;
+}
+
+/* Compact: the booking request, as the template's "Check Availability"
+   popup. Two columns of 50px controls -- the two dates, then guests and room,
+   then name and email -- the message across the width, and a full-width
+   button. */
+.montana-form--compact .montana-form__grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.25rem 1.875rem;
+}
+
+.montana-form--compact .montana-field--message {
+	grid-column: 1 / -1;
+}
+
+.montana-form--compact .montana-field__control {
+	min-height: 3.125rem;
+	border-color: var(--montana-edge);
+}
+
+.montana-form--compact .montana-form__actions .wp-element-button {
+	width: 100%;
+	padding-top: 1.1rem;
+	padding-bottom: 1.1rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 599px) {
+	.montana-form--compact .montana-form__grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Split: the contact page, as the template's. The message across the top,
+   name and email side by side, the subject across, the button under it. */
+.montana-form--split .montana-form__grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.875rem;
+}
+
+.montana-form--split .montana-field--message,
+.montana-form--split .montana-field--subject {
+	grid-column: 1 / -1;
+}
+
+.montana-form--split .montana-field__control {
+	min-height: 3rem;
+	border-color: var(--montana-edge);
+	background-color: transparent;
+}
+
+.montana-form--split .montana-field--message .montana-field__control {
+	min-height: 14rem;
+}
+
+.montana-form--split .montana-form__actions {
+	margin-top: 1.875rem;
+}
+
+.montana-form--split .montana-form__actions .wp-element-button {
+	padding: 1.1rem 2.75rem;
+	border-color: var(--wp--preset--color--primary);
+	background: transparent;
+	color: var(--wp--preset--color--primary);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+
+.montana-form--split .montana-form__actions .wp-element-button:hover,
+.montana-form--split .montana-form__actions .wp-element-button:focus-visible {
+	background: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+@media (max-width: 599px) {
+	.montana-form--split .montana-form__grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Inline: the footer's newsletter. A white field with the button set inside
+   its right-hand end. */
+.montana-form--inline .montana-form__grid {
+	position: relative;
+	display: block;
+}
+
+.montana-form--inline .montana-field__control {
+	min-height: 2.8125rem;
+	padding: 0.5rem 7rem 0.5rem 1.25rem;
+	font-size: var(--wp--preset--font-size--medium);
+	border: 0;
+	background-color: #fff;
+	color: #1f1f1f;
+}
+
+.montana-form--inline .montana-field__control::placeholder {
+	color: #5c5c5c;
+}
+
+.montana-form__inline-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 1.375rem;
+	border: 0;
+	background: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	cursor: pointer;
+	transition: background-color 0.25s ease;
+}
+
+.montana-form__inline-button:hover,
+.montana-form__inline-button:focus-visible {
+	background: var(--wp--preset--color--primary-deep);
+}
+
+/* On the black footer a deep palette's fill can sit under 3:1 against the
+   ground (Heather's purple is 2.7:1): a pale hairline gives the button the
+   edge WCAG 1.4.11 asks for, in every palette. */
+.montana-footer .montana-form__inline-button {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--overlay) 45%, var(--wp--preset--color--primary));
+}
+
+.montana-form--inline .montana-form__notice {
+	margin-bottom: 0.75rem;
+}
+
+/* Block: the sidebar's newsletter. The field, then a full-width button. */
+.montana-form--block .montana-form__actions {
+	margin-top: 0.625rem;
+}
+
+.montana-form--block .montana-form__actions .wp-element-button {
+	width: 100%;
+}
+
+/* Choices are drawn by the browser; the arrow is put back after the
+   appearance reset takes the native one away. */
+select.montana-field__control {
+	padding-right: 2.5rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+	background-position: right 0.9rem center;
+	background-repeat: no-repeat;
+	background-size: 1rem;
+	cursor: pointer;
+}
+
+/* The honeypot. Off-screen rather than display:none, because some bots skip
+   anything that is display:none and fill everything else. */
+.montana-form__trap {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.montana-form__notice {
+	margin: 0 0 1.25rem;
+	padding: 0.85rem 1.1rem;
+	border-left: 3px solid currentColor;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.6;
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+.montana-form__notice.is-ok {
+	/* The words carry the message; the colour only marks it. */
+	border-left-color: var(--wp--preset--color--accent);
+}
+
+.montana-form__notice.is-error {
+	border-left-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--primary);
+}
+
+/* ---------------------------------------------------------------------------
+   Plugin submit buttons
+   --------------------------------------------------------------------------- */
+
+.wpcf7 input[type="submit"],
+.wpforms-submit,
+.gform_button,
+.fluentform .ff-btn-submit,
+.forminator-button-submit,
+.nf-form-content .submit-wrap input {
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	line-height: 1.5;
+	padding: 0.6rem 1.875rem;
+	color: var(--wp--preset--color--on-primary);
+	background: var(--wp--preset--color--primary);
+	border: 0;
+	border-radius: 0;
+	cursor: pointer;
+	width: auto;
+}
+
+.wpcf7 input[type="submit"]:hover,
+.wpforms-submit:hover,
+.gform_button:hover,
+.fluentform .ff-btn-submit:hover,
+.forminator-button-submit:hover {
+	background: var(--wp--preset--color--primary-deep);
+}
+
+.wpcf7-not-valid-tip,
+.wpforms-error,
+.gfield_validation_message,
+.fluentform .error {
+	color: var(--wp--preset--color--primary);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.wpcf7 .wpcf7-response-output {
+	margin: 1.25rem 0 0;
+	padding: 0.85rem 1.1rem;
+	border: 0;
+	border-left: 3px solid currentColor;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+/* ---------------------------------------------------------------------------
+   Core search and comments
+   --------------------------------------------------------------------------- */
+
+.wp-block-search__input {
+	box-sizing: border-box;
+	padding: 0.6rem 0.9rem;
+	border: 1px solid var(--wp--preset--color--divider);
+	border-radius: 0;
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.wp-block-post-comments-form input[type="text"],
+.wp-block-post-comments-form input[type="email"],
+.wp-block-post-comments-form input[type="url"],
+.wp-block-post-comments-form textarea {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.75rem 1rem;
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--contrast);
+	background-color: var(--wp--preset--color--surface);
+	border: 1px solid var(--wp--preset--color--surface);
+	border-radius: 0;
+}
+
+.wp-block-post-comments-form label {
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-post-comments-form .form-submit .wp-element-button,
+.wp-block-post-comments-form input[type="submit"] {
+	/* Core's comment form gives its submit the page's text colour, which in dark
+	   mode is light text on the lifted, light gradient: 2.2:1. */
+	color: var(--wp--preset--color--on-primary);
+	text-transform: uppercase;
+	padding-left: 3.125rem;
+	padding-right: 3.125rem;
+}
