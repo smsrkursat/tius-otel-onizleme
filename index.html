@@ -202,7 +202,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <link rel='stylesheet' id='montana-style-css' href='/tius-otel-onizleme/wp-content/themes/montana/style.css?ver=1.0.2' media='all' />
 <link rel='stylesheet' id='montana-forms-css' href='/tius-otel-onizleme/wp-content/themes/montana/assets/css/forms.css?ver=1.0.2' media='all' />
 <link rel='stylesheet' id='montana-scheme-css' href='/tius-otel-onizleme/wp-content/themes/montana/assets/css/scheme.css?ver=1.0.2' media='all' />
-<link rel='stylesheet' id='montana-child-style-css' href='/tius-otel-onizleme/wp-content/themes/montana-child/style.css?ver=1792432420' media='all' />
+<link rel='stylesheet' id='montana-child-style-css' href='/tius-otel-onizleme/wp-content/themes/montana-child/style.css?ver=1792664956' media='all' />
 <link rel="canonical" href="https://cukurovatiusotel.com/" />
 <script id="wp-importmap" type="importmap">
 {"imports":{"@wordpress/interactivity":"/tius-otel-onizleme/wp-includes/js/dist/script-modules/interactivity/index.min.js?ver=efaa5193bbad9c60ffd1"}}
@@ -372,7 +372,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 </div>
 </div></div>
 </div>
-</div>
+<a class="otel-scroll-cue" href="#otel-icerik" aria-label="Aşağı kaydır"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6 -6" /></svg></a></div>
 
 
 
@@ -970,6 +970,32 @@ var montanaScheme = {"toDark":"Karanl\u0131k moda ge\u00e7","toLight":"Ayd\u0131
 </script>
 <script id="montana-scheme-toggle-js" src="/tius-otel-onizleme/wp-content/themes/montana/assets/js/scheme-toggle.js?ver=1.0.2"></script>
 <script data-wp-strategy="defer" defer id="montana-child-back-to-top-js" src="/tius-otel-onizleme/wp-content/themes/montana-child/assets/back-to-top.js?ver=1791746235"></script>
-<script src="/tius-otel-onizleme/static/site.js" defer></script>
+<script>
+	( function () {
+		var cue = document.querySelector( '.otel-scroll-cue' );
+		if ( ! cue ) {
+			return;
+		}
+		var frame = cue.closest( '.montana-hero-frame' );
+		var next = frame && frame.nextElementSibling;
+		if ( next && ! next.id ) {
+			next.id = 'otel-icerik';
+		}
+		cue.addEventListener( 'click', function ( event ) {
+			if ( ! next ) {
+				return;
+			}
+			event.preventDefault();
+			var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+			window.scrollTo( { top: frame.getBoundingClientRect().bottom + window.pageYOffset, behavior: reduce ? 'auto' : 'smooth' } );
+		} );
+		function update() {
+			cue.classList.toggle( 'is-hidden', window.pageYOffset > 80 );
+		}
+		window.addEventListener( 'scroll', update, { passive: true } );
+		update();
+	} )();
+	</script>
+	<script src="/tius-otel-onizleme/static/site.js" defer></script>
 </body>
 </html>
